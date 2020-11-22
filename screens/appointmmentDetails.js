@@ -61,8 +61,8 @@ const appointmmentDetails= (props) => {
 
     const openConfirmationAlert = () => {
         Alert.alert('remove the appointmment', 'are you sure?', [
-            {text: 'Yes', onPress: () => deleteAppointmment()},
-            {text: 'No', onPress: () => console.log(false)}
+            {text: 'No', onPress: () => console.log(false)},
+            {text: 'Yes', onPress: () => deleteAppointmment()}
         ])
     }
 

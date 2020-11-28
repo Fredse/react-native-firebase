@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, ScrollView,TextInput, Button, ActivityIndicator, Alert} from 'react-native';
+import {View, Text, StyleSheet, ScrollView,TextInput, Button, ActivityIndicator, Alert, ImageBackground} from 'react-native';
 import firebase from '../database/firebase'
+
+const image = {uri: 'https://image.freepik.com/vector-gratis/gracias-medicos-enfermeras-todo-personal-medico-heroes-hospital-luchan-contra-propagacion-pandemia-coronavirus_261130-5.jpg'};
 
 const appointmmentDetails= (props) => {
 
@@ -60,9 +62,9 @@ const appointmmentDetails= (props) => {
     }
 
     const openConfirmationAlert = () => {
-        Alert.alert('remove the appointmment', 'are you sure?', [
+        Alert.alert('Removera la cita?', 'Esta Seguro?', [
             {text: 'No', onPress: () => console.log(false)},
-            {text: 'Yes', onPress: () => deleteAppointmment()}
+            {text: 'Si', onPress: () => deleteAppointmment()}
         ])
     }
 
@@ -76,35 +78,38 @@ const appointmmentDetails= (props) => {
     }
 
     return(
-        <ScrollView style={style.container}>
-           <View style={style.inputGroup}>
-                <TextInput placeholder="name" value={appointmment.name} onChangeText={(value) => handleChangeText('name', value)} />
-           </View>
-           <View style={style.inputGroup}>
-                <TextInput placeholder="lastname" value={appointmment.lastname} onChangeText={(value) => handleChangeText('lastname', value)}/>
-           </View>
-           <View style={style.inputGroup}>
-                <TextInput placeholder="document"  value={appointmment.document} onChangeText={(value) => handleChangeText('document', value)}/>
-           </View>
-           <View style={style.inputGroup}>
-                <TextInput placeholder="birthday (DD-MM-YY)" value={appointmment.birthday} onChangeText={(value) => handleChangeText('birthday', value)}/>
-           </View>
-           <View style={style.inputGroup}>
-                <TextInput placeholder="city" value={appointmment.city} onChangeText={(value) => handleChangeText('city', value)}/>
-           </View>
-           <View style={style.inputGroup}>
-                <TextInput placeholder="neighborhood" value={appointmment.neighborhood} onChangeText={(value) => handleChangeText('neighborhood', value)}/>
-           </View>
-           <View style={style.inputGroup}>
-                <TextInput placeholder="phone" value={appointmment.phone} onChangeText={(value) => handleChangeText('phone', value)}/>
-           </View>
-           <View>
-                <Button color="#19AC52" title="Update Appointmment" onPress={()=> updateAppointment()}/>
-           </View>
-           <View>
-                <Button color="#E37399" title="Delete Appointmment" onPress={()=> openConfirmationAlert()}/>
-           </View>
-       </ScrollView>
+        <ImageBackground source={image} style={style.image}>
+            
+            <ScrollView style={style.container}>
+            <View style={style.inputGroup}>
+                    <TextInput placeholder="name" value={appointmment.name} onChangeText={(value) => handleChangeText('name', value)} />
+            </View>
+            <View style={style.inputGroup}>
+                    <TextInput placeholder="lastname" value={appointmment.lastname} onChangeText={(value) => handleChangeText('lastname', value)}/>
+            </View>
+            <View style={style.inputGroup}>
+                    <TextInput placeholder="document"  value={appointmment.document} onChangeText={(value) => handleChangeText('document', value)}/>
+            </View>
+            <View style={style.inputGroup}>
+                    <TextInput placeholder="birthday (DD-MM-YY)" value={appointmment.birthday} onChangeText={(value) => handleChangeText('birthday', value)}/>
+            </View>
+            <View style={style.inputGroup}>
+                    <TextInput placeholder="city" value={appointmment.city} onChangeText={(value) => handleChangeText('city', value)}/>
+            </View>
+            <View style={style.inputGroup}>
+                    <TextInput placeholder="neighborhood" value={appointmment.neighborhood} onChangeText={(value) => handleChangeText('neighborhood', value)}/>
+            </View>
+            <View style={style.inputGroup}>
+                    <TextInput placeholder="phone" value={appointmment.phone} onChangeText={(value) => handleChangeText('phone', value)}/>
+            </View>
+            <View style={style.button}>
+                <Button  color="green" title="Actualizar Cita" onPress={()=> updateAppointment()}/>
+            </View>
+            <View style={style.button}>
+                <Button color="red" title="Eliminar cita" onPress={()=> openConfirmationAlert()}/>
+            </View>
+            </ScrollView>
+        </ImageBackground>
     )
 };
 
@@ -118,7 +123,16 @@ const style =StyleSheet.create({
         padding: 0,
         marginBottom: 15,
         borderBottomWidth: 1,
-        borderBottomColor: '#cccccc'
+        borderBottomColor: 'black',
+        marginTop: 15
+    },
+    image:{
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center"
+    }, 
+    button:{
+        marginTop: 10
     }
 })
 
